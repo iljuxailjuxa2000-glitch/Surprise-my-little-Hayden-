@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💖 Для Хэйден 💖</title>
+
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+  color:white;
+}
+
+/* container */
+.container {
+  max-width:700px;
+  margin:auto;
+  padding:20px;
+}
+
+/* cards */
+.card {
+  background: rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+  backdrop-filter: blur(10px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* title */
+h1,h2 {
+  text-align:center;
+  color:#ff7aa2;
+}
+
+/* sylas image */
+.sylas-img {
+  width:100%;
+  border-radius:15px;
+  margin-bottom:10px;
+}
+
+/* chat */
+.chat-box {
+  height:200px;
+  overflow-y:auto;
+  background:rgba(0,0,0,0.3);
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.msg {
+  margin:5px 0;
+}
+
+.sylas {
+  color:#ff7aa2;
+}
+
+.user {
+  text-align:right;
+  color:#8be9fd;
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-top:5px;
+}
+
+/* button */
+button {
+  margin-top:10px;
+  padding:10px;
+  border:none;
+  border-radius:20px;
+  background:#ff7aa2;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover {
+  opacity:0.8;
+}
+
+/* floating hearts */
+.heart {
+  position:fixed;
+  color:#ff7aa2;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💖 Хэйден 💖</h1>
+
+<div class="card">
+<h2>🖤 Сайлас</h2>
+<img class="sylas-img" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sylas_0.jpg">
+<p style="text-align:center;">Он кое-что хочет сказать тебе...</p>
+</div>
+
+<div class="card">
+<h2>💬 Чат с Сайласом</h2>
+
+<div class="chat-box" id="chat"></div>
+
+<input type="text" id="userInput" placeholder="Напиши что-нибудь...">
+<button onclick="sendMessage()">Отправить</button>
+
+</div>
+
+<div class="card">
+<h2>💌 Напиши мне</h2>
+
+<textarea id="loveMsg" rows="4" placeholder="Напиши что ты чувствуешь..."></textarea>
+
+<button onclick="saveMessage()">Отправить 💖</button>
+
+<p id="savedText" style="margin-top:10px;color:#ff7aa2;"></p>
+
+</div>
+
+<div class="card">
+<h2>🎵 Музыка</h2>
+<audio id="music" loop>
+<source src="music.mp3">
+</audio>
+<button onclick="toggleMusic()">🎧 Включить / Выключить</button>
+</div>
+
+</div>
+
+<script>
+
+// hearts
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.textContent='💖';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},500);
+
+// chat
+const replies=[
+  "Ты особенная...",
+  "Я чувствую твою силу.",
+  "Ты мне нравишься.",
+  "Ты не одна.",
+  "Ты прекрасна."
+];
+
+function sendMessage(){
+  const input=document.getElementById('userInput');
+  const chat=document.getElementById('chat');
+
+  if(!input.value) return;
+
+  chat.innerHTML+=`<div class="msg user">${input.value}</div>`;
+
+  setTimeout(()=>{
+    const reply=replies[Math.floor(Math.random()*replies.length)];
+    chat.innerHTML+=`<div class="msg sylas">${reply}</div>`;
+    chat.scrollTop=chat.scrollHeight;
+  },700);
+
+  input.value="";
+}
+
+// save message
+function saveMessage(){
+  const text=document.getElementById('loveMsg').value;
+  document.getElementById('savedText').textContent="💖 Сохранено: "+text;
+}
+
+// music
+function toggleMusic(){
+  const m=document.getElementById('music');
+  m.paused ? m.play() : m.pause();
+}
+
+</script>
+
+</body>
+</html>
